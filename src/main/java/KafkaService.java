@@ -30,12 +30,12 @@ public class KafkaService {
         sendMessageKey(topic,null,message);
     }
 
-    public void sendMessageBatch(String topic, List<String> messages,int interval) throws InterruptedException{
+    public void sendMessageBatch(String topic, List<String> messages,double interval) throws InterruptedException{
 
         for (int i = 0; i < messages.size() ; i++) {
             System.out.println(i);
-//            sendMessageKey(topic,null,messages.get(i));
-//            Thread.sleep(interval * 1000);
+            sendMessageKey(topic,null,messages.get(i));
+            Thread.sleep((long) (interval * 1000));
         }
     }
 
