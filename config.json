@@ -1,0 +1,10 @@
+{
+      "db": {
+          "database": "rfmc_invoices_amgen",
+          "port": "50432",
+          "host": "10.6.1.91",
+          "user": "camunda",
+          "table": "invoice",
+          "password": "camunda"
+      }
+}
