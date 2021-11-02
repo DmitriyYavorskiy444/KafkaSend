@@ -12,15 +12,7 @@ public class Main {
         KafkaService kafkaService = new KafkaService();
 
         Connection connection = new Connection();
-        ResultSet resultSet = connection.dbConnection("SELECT * FROM invoice LIMIT 10");
-        ArrayList<String> dbMessages = new ArrayList<>();
-        int i = 1;
-        while (resultSet.next() ) {
-            String data = String.format("%s : %s : %s\n", i, resultSet.getString(1),resultSet.getString(2));
-            System.out.print(data);
-            dbMessages.add(data);
-            i++;
-        }
+        ResultSet resultSet = connection.dbConnection("SELECT to_jsonb(array_agg(invoice)) FROM invoice LIMIT 10");
 
 //        HashMap<String, String> messageTemplate = new HashMap<>();
 //        messageTemplate.put("name", "Int[10-30]");
@@ -30,11 +22,11 @@ public class Main {
 //        ArrayList<String> messages = new KafkaMessageGenerator().messageGenerator(1_000_000, messageTemplate);
 //        kafkaService.sendMessage("topicTEn", "Hello, worldssddsdsdsss!"); //key null
 //        kafkaService.sendMessageKey("topicTEST_Key", "1fff", "testValueDSDS");
-        kafkaService.sendMessageBatch("ToBeOrNotToBe3", dbMessages, 0.5);
+//        kafkaService.sendMessageBatch("ToBeOrNotToBe3", dbMessages(resultSet), 0.5);
 
 
 //                -----------Test of messages-----------
-//        messages.forEach(System.out::println);
+        dbMessages(resultSet).forEach(System.out::print);
 
 //                ---------MapGenerators Test ----------
 //        System.out.println("Before");
@@ -53,7 +45,18 @@ public class Main {
 //        }
 
     }
+    public static ArrayList<String> dbMessages (ResultSet resultSet) throws SQLException {
+        ArrayList<String> dbMessages = new ArrayList<>();
 
+        int i = 1;
+        while (resultSet.next()) {
+            String data = String.format("%s : %s\n", i, resultSet.getString(1));
+            System.out.print(data);
+//            dbMessages.add(new JSONObject(resultSet.getString(1)).toString());
+            i++;
+        }
+    return dbMessages;
+    }
 }
 
 
