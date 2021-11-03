@@ -1,7 +1,7 @@
 public class Config {
-    ParsingConfigFile db;
+    ConnectionParameters db;
 
-    public ParsingConfigFile getDb() {
+    public ConnectionParameters getDb() {
         return db;
     }
 }
