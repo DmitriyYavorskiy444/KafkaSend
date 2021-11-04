@@ -1,9 +1,7 @@
 import org.json.JSONObject;
-
 import java.util.*;
 
 public class KafkaMessageGenerator {
-
 //                      ----------My old and bulky version-----------
 //    public ArrayList<String> generateJson(int count, HashMap<String, String> map){
 //        ArrayList<String> list = new ArrayList<>();
